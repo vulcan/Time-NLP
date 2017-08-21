@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Date;
 
 @RestController
 public class HelloController {
@@ -36,8 +37,15 @@ public class HelloController {
             TimeAppoint one = new TimeAppoint();
             one.setAllDay(unit.getIsAllDayTime());
             one.setTimeExpression(unit.Time_Expression);
-            one.setTime(unit.getTime());
-            one.setTimeNorm(unit.Time_Norm);
+			// fix now bug
+			if (unit.getTime() != null && unit.getTime().getTime() > 0) {
+				one.setTime(unit.getTime());
+				one.setTimeNorm(unit.Time_Norm);
+			} else {
+				one.setTime(new Date(System.currentTimeMillis()));
+				//TODO current time string
+				one.setTimeNorm("");
+			}
             result.add(one);
         }
 
