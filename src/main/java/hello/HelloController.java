@@ -39,7 +39,7 @@ public class HelloController {
             one.setTimeExpression(unit.Time_Expression);
 			// fix now bug
 			if (unit.getTime() != null && unit.getTime().getTime() > 0) {
-				one.setTime(unit.getTime());
+				one.setTime(new Date(unit.getTime().getTime() - 8*3600*1000L));
 				one.setTimeNorm(unit.Time_Norm);
 			} else {
 				one.setTime(new Date(System.currentTimeMillis()));
